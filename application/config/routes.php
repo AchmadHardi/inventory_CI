@@ -53,3 +53,9 @@ $route['default_controller'] = 'auth';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['inventory'] = 'inventory/index';
+
+$route['barang'] = 'barang/index';
+$route['barang/tambah'] = 'barang/tambah'; 
+$route['barang/edit/(:any)'] = 'barang/edit/$1';
+$route['barang/update'] = 'barang/update';
+$route['barang/hapus/(:any)'] = 'barang/hapus/$1';

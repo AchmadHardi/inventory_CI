@@ -67,11 +67,15 @@ html {
 
 .portfolio-thumb img {
     height: 250px;
-    /* Set the desired height */
+
     width: 100%;
-    /* Set the width to 100% for responsiveness */
     object-fit: cover;
-    /* Maintain aspect ratio and cover the entire container */
+
+}
+
+.footer {
+
+    padding: 5px;
 }
 </style>
 
