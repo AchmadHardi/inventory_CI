@@ -7,156 +7,318 @@
             </button>
 
         </div>
-        <div class="card-body mt-2">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Nama Barang</th>
-                        <th>Stok</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    <?php
-                    $no = 1;
-                    // open foreach
-                    foreach ($barang as $item) {
-                    ?>
-                    <tr>
-                        <td><?php echo $no++ ?></td>
-                        <td><?php echo $item->nama_barang ?></td>
-                        <td><?php echo $item->stok ?></td>
-                        <td class="d-flex align-items-center">
-                            <div class="mr-2">
-                                <button type="button" data-toggle="modal" class="btn btn-sm btn-warning btn-edit"
-                                    data-target="#modalUbah<?= $item->id_barang ?>">
-                                    <i class="fa fa-edit"></i>
-                                </button>
-                            </div>
-
-                            <form id="form-delete-<?= $item->id_barang ?>" method="post"
-                                action="<?= site_url('barang/hapus/' . $item->id_barang); ?>">
-                                <button type="button" class="btn btn-sm btn-danger btn-confirm-delete"
-                                    data-id="<?= $item->id_barang ?>">
-                                    <i class="fa fa-trash"></i>
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-
-                    <!-- Your Modal -->
-                    <div class="modal fade" id="modalUbah<?= $item->id_barang ?>" tabindex="-1" role="dialog"
-                        aria-labelledby="modalUbahLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="modalUbahLabel">Edit Data</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <form method="post" action="<?= base_url('barang/update/') ?>">
-                                    <div class="modal-body">
-                                        <input type="hidden" class="form-control" id="id_barang" name="id_barang"
-                                            value="<?= $item->id_barang; ?>">
-                                        <label for="editNamaBarang">Nama Barang:</label>
-                                        <input type="text" class="form-control" id="nama_barang" name="nama_barang"
-                                            value="<?= $item->nama_barang; ?>">
-
-                                        <label for="editStok" class="mt-3">Stok:</label>
-                                        <!-- <input type="text" class="form-control" id="stok" name="stok"
-                                            value="<?= $item->stok; ?>"> -->
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary" id="btnSaveChanges">Save
-                                            changes</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- end foreach -->
-                    <?php } ?>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-
-
-<!-- /.container-fluid -->
-
-<div class="modal fade" id="modalTambah">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Tambah <?= $judul; ?></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Data Barang</h6>
             </div>
-            <div class="modal-body">
-                <form action="<?= base_url('barang/tambah') ?>" method="post">
-                    <div class="form-group mb-0">
-                        <label for="nama_barang"></label>
-                        <input type="text" name="nama_barang" id="nama_barang" class="form-control"
-                            placeholder="Masukkan Nama Barang">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Barang</th>
+                                <th>Stok</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <?php
+                            $no = 1;
+                            // open foreach
+                            foreach ($barang as $index => $item) {
+                            ?>
+                            <tr>
+                                <td><?php echo $no++ ?></td>
+                                <td><?php echo $item->nama_barang ?></td>
+                                <td><?php echo $item->stok ?></td>
+                                <td class="d-flex align-items-center">
+                                    <div class="mr-2">
+                                        <button type="button" data-toggle="modal"
+                                            class="btn btn-sm btn-warning btn-edit"
+                                            data-target="#modalUbah<?= $item->id_barang ?>">
+                                            <i class="fa fa-edit"></i>
+                                        </button>
+                                    </div>
+
+                                    <form id="form-delete-<?= $item->id_barang ?>" method="post"
+                                        action="<?= site_url('barang/hapus/' . $item->id_barang); ?>">
+                                        <button type="button" class="btn btn-sm btn-danger btn-confirm-delete"
+                                            data-id="<?= $item->id_barang ?>">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+
+                            <!-- Your Modal -->
+                            <div class="modal fade" id="modalUbah<?= $item->id_barang ?>" tabindex="-1" role="dialog"
+                                aria-labelledby="modalUbahLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="modalUbahLabel">Edit Data</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <form method="post" action="<?= base_url('barang/update/') ?>">
+                                            <div class="modal-body">
+                                                <input type="hidden" class="form-control" id="id_barang"
+                                                    name="id_barang" value="<?= $item->id_barang; ?>">
+                                                <label for="editNamaBarang">Nama Barang:</label>
+                                                <input type="text" class="form-control" id="nama_barang"
+                                                    name="nama_barang" value="<?= $item->nama_barang; ?>">
+
+                                                <label for="editStok" class="mt-3">Stok:</label>
+                                                <input type="text" class="form-control" id="stok" name="stok"
+                                                    value="<?= $item->stok; ?>">
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary btn-update"
+                                                    id="btnSaveChanges">Save
+                                                    changes</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- end foreach -->
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- /.container-fluid -->
+
+        <div class="modal fade" id="modalTambah">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Tambah <?= $judul; ?></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                    <div class="form-group mb-0">
-                        <label for="stok"></label>
-                        <!-- <input type="text" name="stok" id="stok" class="form-control" placeholder="Masukkan stok"> -->
-                    </div>
-                    <!-- <div class="form-group mb-0">
+                    <div class="modal-body">
+                        <form action="<?= base_url('barang/tambah') ?>" method="post" id="formTambah">
+                            <div class="form-group mb-0">
+                                <label for="nama_barang"></label>
+                                <input type="text" name="nama_barang" id="nama_barang" class="form-control"
+                                    placeholder="Masukkan Nama Barang">
+                            </div>
+                            <div class="form-group mb-0">
+                                <label for="stok"></label>
+                                <input type="text" name="stok" id="stok" class="form-control"
+                                    placeholder="Masukkan stok">
+                            </div>
+                            <!-- <div class="form-group mb-0">
                         <label for="kategori"></label>
                         <input type="text" name="kategori" id="tambah-kategori" class="form-control"
                             placeholder="Masukkan kategori">
                     </div> -->
-                    <!-- contoh -->
-                    <!-- <select class="form-control" name="id_kategori" id="id_kategori">
+                            <!-- contoh -->
+                            <!-- <select class="form-control" name="id_kategori" id="id_kategori">
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
                     </select> -->
-            </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" name="tambah" class="btn btn-primary">Tambah Data</button>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <a id="btnTambahData" class="btn btn-primary btn-tambah">Tambah
+                            Data</a>
+                    </div>
+                </div>
+                </form>
             </div>
         </div>
-        </form>
-    </div>
-</div>
+
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+        <!-- <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
+
+        <script>
+        $(document).ready(function() {
+            $('.btn-edit').on('click', function() {
+                var id = $(this).data('id');
+                var nama_barang = $(this).data('nama_barang');
+                var stok = $(this).data('stok');
+
+                var modalId = '#modalUbah' + id;
+
+                $(modalId + ' #editNamaBarang').val(nama_barang);
+                $(modalId + ' #editStok').val(stok);
+
+                $(modalId).modal('show');
+            });
+
+            $('body').on('click', '.btn-confirm-delete', function() {
+                var id = $(this).data('id');
+
+                // Use SweetAlert2 for confirmation
+                Swal.fire({
+                    title: 'Konfirmasi',
+                    text: 'Yakin ingin menghapus data barang?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Hapus'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Use the form ID to submit the form
+                        $('#form-delete-' + id).submit();
+
+                        // Show SweetAlert for success
+                        Swal.fire({
+                            title: 'Success',
+                            text: 'Data berhasil dihapus!',
+                            icon: 'success',
+                            timer: 1500
+                        });
+                    }
+                });
+            });
+
+            $('body').on('click', '.btn-update', function() {
+                // Perform an AJAX form submission
+                $.ajax({
+                    url: $('#formUbah').attr('action'),
+                    method: 'POST',
+                    data: $('#formUbah').serialize(),
+                    dataType: 'json',
+                    success: function(response) {
+                        // if (response.success) {
+                        $('#modalUbah').modal('hide');
+
+                        // Show SweetAlert for success
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Data berhasil diubah!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        location.reload()
 
 
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script>
-$(document).ready(function() {
+                        // Optional: You can reload the page or perform any other actions
+                        // window.location.reload();
+                        // } else {
+                        //     Swal.fire({
+                        //         title: 'Error',
+                        //         text: 'Gagal mengubah data. Silakan coba lagi.',
+                        //         icon: 'error',
+                        //         timer: 1500
+                        //     });
+                        // }
+                    },
+                    error: function() {
+                        Swal.fire({
+                            title: 'Success',
+                            text: 'Data berhasil diubah!',
+                            icon: 'success',
+                            timer: 1500
+                        });
+                    }
+                });
+            });
 
-    $('.btn-edit').on('click', function() {
-        var id = $(this).data('id');
-        var nama_barang = $(this).data('nama_barang');
-        var stok = $(this).data('stok');
+            // ... Other existing code ...
+        });
+        // $('#btnSaveChanges').on('click', function() {
+        //     // Perform an AJAX form submission
+        //     $.ajax({
+        //         url: $('#formUbah').attr('action'),
+        //         method: 'POST',
+        //         data: $('#formUbah').serialize(),
+        //         dataType: 'json',
+        //         success: function(response) {
+        //             if (response.success) {
+        //                 $('#modalUbah').modal('hide');
 
-        $('#editNamaBarang').val(nama_barang);
-        $('#editStok').val(stok);
+        //                 Swal.fire({
+        //                     position: 'top-end',
+        //                     icon: 'success',
+        //                     title: 'Data berhasil diubah!',
+        //                     showConfirmButton: false,
+        //                     timer: 1500
+        //                 });
 
-        $('#modalUbah').modal('show');
-    });
-});
-</script>
+        //                 // Optional: You can reload the page or perform any other actions
+        //                 // window.location.reload();
+        //             } else {
+        //                 Swal.fire({
+        //                     title: 'Error',
+        //                     text: 'Gagal mengubah data. Silakan coba lagi.',
+        //                     icon: 'error'
+        //                 });
+        //             }
+        //         },
+        //         error: function() {
+        //             Swal.fire({
+        //                 title: 'Success',
+        //                 text: 'Data berhasil diubah!',
+        //                 icon: 'success'
+        //             });
+        //         }
+        //     });
+        // });
+        $(document).ready(function() {
+            $('#btnTambahData').on('click', function() {
+                // Remove e.preventDefault();
 
-<script>
-$('body').on('click', '.btn-confirm-delete', function() {
-    var id = $(this).data('id');
+                $.ajax({
+                    url: $('#formTambah').attr('action'),
+                    method: 'POST',
+                    data: $('#formTambah').serialize(),
+                    success: function(response) {
+                        console.log(response)
 
-    if (confirm("Yakin ingin menghapus data barang?")) {
-        // Use the form ID to submit the form
-        $('#form-delete-' + id).submit();
-    }
-});
-</script>
+                        // Check the response for success
+                        // if (response.trim() === 'success') {
+                        // Hide the modal
+                        $('#modalTambah').modal('hide');
+
+                        // Show SweetAlert for success
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Data berhasil ditambahkan!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        location.reload()
+
+                        //     // Optional: You can reload the page or perform any other actions
+                        //     // window.location.reload();
+                        // } else {
+                        //     // Show SweetAlert for error
+                        //     Swal.fire({
+                        //         title: 'Error',
+                        //         text: 'Failed to add data. Please try again.',
+                        //         icon: 'error'
+                        //     });
+                        // }
+                    },
+                    error: function() {
+                        // Show SweetAlert for error
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'Failed to add data. Please try again.',
+                            icon: 'error'
+                        });
+                    }
+                });
+            });
+
+            // ... Other existing code ...
+        });
+        </script>

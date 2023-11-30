@@ -13,8 +13,10 @@ class Dashboard extends CI_Controller
     //Load Halaman dashboard
     public function index()
     {
-        $this->load->view('_template/header'); 
+        $this->load->view('_template/v_header');
+        $this->load->view('_template/v_sidebar');
+        $this->load->view('_template/v_topbar');
         $this->load->view('_template/index');
-        $this->load->view('_template/footer');
+        $this->load->view('_template/v_footer');
     }
 }
