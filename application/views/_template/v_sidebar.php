@@ -17,7 +17,7 @@
             <span>Dashboard</span></a>
     </li>
     <li class="nav-item active">
-        <a class="nav-link" href="<?= base_url('transaksi'); ?>">
+        <a class="nav-link" href="">
             <i class="fa fa-tachometer"></i>
             <span>Transaksi</span>
         </a>

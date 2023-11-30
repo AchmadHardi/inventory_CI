@@ -59,3 +59,9 @@ $route['barang/tambah'] = 'barang/tambah';
 $route['barang/edit/(:any)'] = 'barang/edit/$1';
 $route['barang/update'] = 'barang/update';
 $route['barang/hapus/(:any)'] = 'barang/hapus/$1';
+
+$route['kategori'] = 'kategori/index';
+$route['kategori/tambah'] = 'kategori/tambah'; 
+$route['kategori/edit/(:any)'] = 'kategori/edit/$1';
+$route['kategori/update'] = 'kategori/update';
+$route['kategori/hapus/(:any)'] = 'kategori/hapus/$1';

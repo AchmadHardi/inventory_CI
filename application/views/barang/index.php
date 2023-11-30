@@ -281,7 +281,6 @@
                     method: 'POST',
                     data: $('#formTambah').serialize(),
                     success: function(response) {
-                        console.log(response)
 
                         // Check the response for success
                         // if (response.trim() === 'success') {
