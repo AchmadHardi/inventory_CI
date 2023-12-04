@@ -11,26 +11,26 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
+    <li class="nav-item">
         <a class="nav-link" href="<?=base_url('dashboard'); ?>">
             <i class=" fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
     </li>
-    <li class="nav-item active">
+    <li class="nav-item">
         <a class="nav-link" href="">
             <i class="fa fa-tachometer"></i>
             <span>Transaksi</span>
         </a>
     </li>
 
-    <li class="nav-item active">
+    <li class="nav-item">
         <a class="nav-link" href="<?= base_url('barang'); ?>">
             <i class="fa fa-cube"></i>
             <span>Barang</span>
         </a>
     </li>
 
-    <li class="nav-item active">
+    <li class="nav-item">
         <a class="nav-link" href="<?= base_url('kategori'); ?>">
             <i class="fa fa-th-large"></i>
             <span>Kategori</span>
@@ -52,4 +52,28 @@
         </div>
     </li>
 </ul>
-<!-- End of Sidebar -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+$(document).ready(function() {
+    // Add 'active' class to the initially selected menu item
+    var initialUrl = window.location.href;
+    $('.nav-item').each(function() {
+        var menuItemUrl = $(this).find('a.nav-link').attr('href');
+        if (initialUrl.includes(menuItemUrl) && menuItemUrl !== '') {
+            $(this).addClass('active');
+        }
+    });
+
+    // Handle click events for the navigation items
+    $('.nav-item').click(function() {
+        // Remove 'active' class from all menu items
+        $('.nav-item').removeClass('active');
+
+        // Add 'active' class to the clicked menu item (except for "Transaksi")
+        if (!$(this).hasClass('nav-item-not-active')) {
+            $(this).addClass('active');
+        }
+    });
+});
+</script>
+
