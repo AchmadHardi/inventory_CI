@@ -31,13 +31,14 @@ class Kategori extends CI_Controller
         $data = array(
             'nama_kategori' => $nama_kategori,
         );
-        $success = $this->Kategori_model->input_data($data, 'kategori');
+		$success = $this->db->insert('kategori', $data);
 
-        if ($success) {
-            exit('success');
-        } else {
-            exit("error");
-        }
+		if ($success) {
+			echo json_encode(['icon' => 'success', 'title' => 'Data berhasil ditambahkan!']);
+		} else {
+			echo json_encode(['icon' => 'error', 'title' => 'Data gagal ditambahkan!']);
+		}
+		exit;
     }
 
 
@@ -64,15 +65,32 @@ class Kategori extends CI_Controller
             'id_kategori' => $id_kategori
         );
 
-        $this->Kategori_model->update_kategori($where, $data, 'kategori');
-        redirect('kategori/index', $data);
+        $success = $this->db->where($where)->update('kategori', $data);
+		// $success = $this->barang_model->update_barang($where, $data, 'barang');
+		if ($success) {
+			echo json_encode(['icon' => 'success', 'title' => 'Data berhasil Diubah!']);
+		} else {
+			echo json_encode(['icon' => 'error', 'title' => 'Data gagal Diubah!']);
+		}
+		exit;
     }
 
 
     public function hapus($id)
-    {
-        $where = array('id_kategori' => $id);
-        $this->Kategori_model->hapus_data($where, 'kategori');
-        redirect('kategori/index');
-    }
+	{
+		// Check if it's an AJAX request
+		if ($this->input->is_ajax_request()) {
+			$where = array('id_kategori' => $id);
+
+			// Delete the data
+			$this->Kategori_model->hapus_data($where, 'kategori');
+
+			// Send a JSON response indicating success
+			$response = array('status' => 'success', 'message' => 'Data berhasil dihapus!');
+			$this->output->set_content_type('application/json')->set_output(json_encode($response));
+		} else {
+			// Redirect for non-AJAX requests (you might want to handle this differently)
+			redirect('kategori/index');
+		}
+	}
 }

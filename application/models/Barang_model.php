@@ -44,11 +44,10 @@ class Barang_model extends CI_Model
 
 
 
-    function update_barang($where, $data, $table)
-    {
-        $this->db->where($where);
-        $this->db->update($table, $data);
-    }
+	public function update_barang($where, $data, $table) {
+		$this->db->where($where);
+		return $this->db->update($table, $data);
+	}
 
     public function hapus_data($where, $table){
         $this->db->where($where);

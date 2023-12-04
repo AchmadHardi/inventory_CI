@@ -9,14 +9,14 @@
                     <form action="<?= base_url('flow/store?flow=masuk'); ?>" method="post" id="formCreate">
                         <div class="form-group">
                             <label for="nama_barang">Nama Barang:</label>
-                            <select name="id_barang" class="form-control" required>
+                            <select name="id_barang" class="form-control" required id="create-id_barang">
                                 <?php foreach ($barang as $b) : ?>
                                 <option value="<?= $b->id_barang ?>"><?= $b->nama_barang ?></option>
                                 <?php endforeach ?>
                             </select>
                             <br>
                             <label for="nama_kategori">Nama Kategori: </label>
-                            <select name="id_kategori" class="form-control" required id="nama_kategori">
+                            <select name="id_kategori" class="form-control" required id="create-id_kategori">
                                 <?php foreach ($kategori as $k) : ?>
                                 <option value="<?= $k->id_kategori ?>"><?= $k->nama_kategori ?></option>
                                 <?php endforeach ?>
@@ -24,7 +24,7 @@
                         </div>
                         <div class="form-group">
                             <label for="qty">Stok Masuk</label>
-                            <input type="number" class="form-control" id="qty" name="qty" required min="1">
+                            <input type="number" class="form-control" id="create-qty" name="qty" required min="1">
                         </div>
                         <a id="btnTambahData" class="btn btn-primary btn-tambah">Tambah Data</a>
                     </form>
@@ -38,38 +38,51 @@
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script>
-$(document).ready(function() {
-    $('#btnTambahData').on('click', function() {
-        $.ajax({
-            url: $('#formCreate').attr('action'),
-            method: 'POST',
-            data: $('#formCreate').serialize(),
-            success: function(response) {
-                if (response.trim() === 'success') {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Data berhasil ditambahkan!',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                    // Redirect to the riwayat page
-                    window.location.href = "riwayat";
-                } else {
+    $(document).ready(function () {
+        $('#btnTambahData').on('click', function () {
+            const data = {
+                "id_barang": $('#create-id_barang').val(),
+                "id_kategori": $('#create-id_kategori').val(),
+                "qty": $('#create-qty').val(),
+            };
+            $.ajax({
+                url: "<?= base_url('flow/store?flow=masuk'); ?>",
+                method: 'POST',
+                data: data,
+                success: function (response) {
+                    var responseData = JSON.parse(response);
+
+                    // Check the status from the response
+                    if (responseData.status === 'success') {
+                        // Show success SweetAlert
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success',
+                            text: responseData.message,
+                            timer: 2000,
+                            showConfirmButton: false,
+                        }).then(function () {
+                            // Redirect to the riwayat page
+							window.location.href = "riwayat";
+                        });
+                    } else {
+                        // Show error SweetAlert
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: responseData.message,
+                        });
+                    }
+                },
+                error: function () {
+                    // Show generic error SweetAlert
                     Swal.fire({
                         title: 'Error',
                         text: 'Failed to add data. Please try again.',
-                        icon: 'error'
+                        icon: 'error',
                     });
                 }
-            },
-            error: function() {
-                Swal.fire({
-                    title: 'Error',
-                    text: 'Failed to add data. Please try again.',
-                    icon: 'error'
-                });
-            }
+            });
         });
     });
-});
 </script>
