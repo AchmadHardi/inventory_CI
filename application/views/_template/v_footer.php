@@ -1,5 +1,5 @@
 </div>
-<footer class="sticky-footer bg-white">
+<footer>
     <div class="container my-auto">
         <div class="copyright text-center my-auto">
             <span>Copyright &copy; Your Website 2023</span>
@@ -50,11 +50,11 @@
 <script src="<?= base_url(); ?>assets/swal/sweetalert2.all.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- Page level plugins -->
-<script src="<?= base_url(); ?>assets/vendor/chart.js/Chart.min.js"></script>
+<!-- <script src="<?= base_url(); ?>assets/vendor/chart.js/Chart.min.js"></script> -->
 
 <!-- Page level custom scripts -->
-<script src="<?= base_url(); ?>assets/js/demo/chart-area-demo.js"></script>
-<script src="<?= base_url(); ?>assets/js/demo/chart-pie-demo.js"></script>
+<!-- <script src="<?= base_url(); ?>assets/js/demo/chart-area-demo.js"></script>
+<script src="<?= base_url(); ?>assets/js/demo/chart-pie-demo.js"></script> -->
 <!-- Page level plugins -->
 <script src="<?= base_url(); ?>assets/vendor/datatables/jquery.dataTables.min.js"></script>
 <script src="<?= base_url(); ?>assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>

@@ -94,7 +94,7 @@
 
 												<div class="modal-body">
 													<input type="hidden" class="form-control" id="edit-id_barang<?= $item->id_barang; ?>" name="id_barang" value="<?= $item->id_barang; ?>">
-													<label for="editNamaBarang">Nama Barang:</label>
+													<label for="editNamaBarang">Nama Item:</label>
 													<input type="text" class="form-control" id="edit-nama_barang<?= $item->id_barang; ?>" name="nama_barang" value="<?= $item->nama_barang; ?>">
 
 												</div>

@@ -65,3 +65,5 @@ $route['kategori/tambah'] = 'kategori/tambah';
 $route['kategori/edit/(:any)'] = 'kategori/edit/$1';
 $route['kategori/update'] = 'kategori/update';
 $route['kategori/hapus/(:any)'] = 'kategori/hapus/$1';
+
+$route['dashboard'] = 'dashboard/index';
